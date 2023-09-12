@@ -5,6 +5,6 @@
 系級：科技系二年級  
 # 課程筆記區  
 # 作業連結區 
-  [HW1]([https://github.com/tony1966/praat-project](https://jaison5.github.io/mymyweb/)https://jaison5.github.io/mymyweb/)
+[HW1]([https://github.com/tony1966/praat-project](https://jaison5.github.io/mymyweb/)https://jaison5.github.io/mymyweb/)
 
 # 專題連結區  
