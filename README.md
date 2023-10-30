@@ -6,4 +6,5 @@
 # 課程筆記區  
 # 作業連結區 
 [HW1](https://jaison5.github.io/mymyweb/)
+[HW2](https://youtu.be/JvSMaS0fU7Q?si=fsRIxkd2Tl4eRY63)
 # 專題連結區  
