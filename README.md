@@ -10,4 +10,4 @@
 [HW3](https://youtu.be/SHKQ-Uau77w?si=fOU3qkupy3UEOH9j)  
 [HW4](https://youtu.be/AYAZrsMV5f4?si=H3mSoOZiqagbZTcI)
 # 專題連結區  
-[第一次專題討論](https://youtu.be/BPX-Ni3nAcs?si=dCvtjQWPIkVbCzND)https://youtu.be/BPX-Ni3nAcs?si=dCvtjQWPIkVbCzND)
+[第一次專題討論](https://youtu.be/BPX-Ni3nAcs?si=dCvtjQWPIkVbCzND)
