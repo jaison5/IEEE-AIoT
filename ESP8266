@@ -1,0 +1,189 @@
+#include <ESP8266WiFi.h>
+#include <WiFiManager.h>      // https://github.com/tzapu/WiFiManager
+#include <PubSubClient.h>
+#include <Servo.h>
+#include <ArduinoJson ㄈ.h>      // For MQTT JSON parsing (v6+) - Legacy
+#include <Wire.h> 
+
+// --- 腳位定義 ---
+// --- Arm 1 (直接控制) ---
+#define SERVO1_PIN 2    // GPIO2 (NodeMCU D4) - Arm 1 Servo 1 (NodeMCU D4 is GPIO2)
+#define SERVO2_PIN 16   // GPIO16 (NodeMCU D0) - Arm 1 Servo 2 (Comment says GPIO4 but D0 is GPIO16. Using 16)
+                        // !!! WARNING: CONFLICTS WITH ELECTROMAGNET_PIN !!!
+#define SERVO3_PIN 14   // GPIO14 (NodeMCU D5) - Arm 1 Servo 3
+#define SERVO4_PIN 12   // GPIO12 (NodeMCU D6) - Arm 1 Servo 4
+#define SERVO5_PIN 13   // GPIO13 (NodeMCU D7) - Arm 1 Servo 5
+#define ELECTROMAGNET_PIN 15 //  (NodeMCU D8) - Arm 1 Electromagnet
+                        // !!! WARNING: CONFLICTS WITH SERVO2_PIN !!!
+
+// --- Arm 2 (I2C 數據線輸出) ---：GPIO4 (D1)為SCL(Clock)，GPIO5 (D2)為 SDA (Data) gnd-gnd
+
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+Servo servo5;
+
+const int SLAVE_ADDRESS = 1;
+// --- Online Mode (MQTT) 變數 ---
+WiFiManager wifiManager;
+WiFiClient espClient;
+PubSubClient client(espClient);
+const char* mqtt_server = ""; //輸入你自己的伺服器！我原本都是自費用雲端伺服器，之後無法再提供。
+const int mqtt_port = 1883;
+
+const char* subscribe_topic = "servo/arm2/#";
+
+// --- I2C 發送佇列與時序控制 ---
+const int MESSAGE_QUEUE_SIZE = 10;      // 佇列可儲存的訊息數量。
+const int MAX_MESSAGE_LENGTH = 128;     // ESP8266本地儲存緩衝區，可以大一些以便觀察完整訊息。
+char messageQueue[MESSAGE_QUEUE_SIZE][MAX_MESSAGE_LENGTH];
+volatile int queueWriteIndex = 0;
+volatile int queueReadIndex = 0;
+const int I2C_SEND_DELAY_MS = 20;
+
+// --- *** 核心修正：定義I2C傳輸的硬體位元組限制 *** ---
+const int I2C_TRANSMIT_LIMIT = 32;      // 這是接收端Arduino Wire函式庫的預設緩衝區大小。
+
+// --- 伺服馬達初始角度 ---
+const int INITIAL_ANGLE = 90;
+
+// --- Serial 通訊速率 ---
+const long ARM2_SERIAL_BAUDRATE = 57600;
+
+// ======================================================
+//  MQTT Callback - 純粹將訊息放入佇列
+// ======================================================
+void callback(char* topic, byte* payload, unsigned int length) {
+  // 檢查佇列是否已滿
+  if ((queueWriteIndex + 1) % MESSAGE_QUEUE_SIZE == queueReadIndex) {
+    Serial.println("[ERROR] I2C message queue is full! Message dropped.");
+    return;
+  }
+  
+  // 確保 payload 長度不會溢出我們的本地緩衝區
+  unsigned int len_to_copy = min((unsigned int)length, (unsigned int)MAX_MESSAGE_LENGTH - 1);
+  
+  // 安全地將 payload 複製到 char 陣列佇列
+  memcpy(messageQueue[queueWriteIndex], payload, len_to_copy);
+  messageQueue[queueWriteIndex][len_to_copy] = '\0'; // 確保字串結尾
+  
+  Serial.print("MQTT Received ["); Serial.print(topic); Serial.print("]: "); Serial.println(messageQueue[queueWriteIndex]);
+  
+  // 將寫入指標移至下一個位置
+  queueWriteIndex = (queueWriteIndex + 1) % MESSAGE_QUEUE_SIZE;
+  Serial.println("  -> Message added to I2C queue for forwarding.");
+}
+
+// ======================================================
+//  MQTT Reconnect Logic (保持不變)
+// ======================================================
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection... ");
+    String clientId = "ESP8266-Forwarder-";
+    clientId += String(random(0xffff), HEX);
+    if (client.connect(clientId.c_str())) {
+      Serial.println("connected!");
+      client.subscribe(subscribe_topic);
+      Serial.print("Subscribed to wildcard topic: "); Serial.println(subscribe_topic);
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      delay(5000);
+    }
+  }
+}
+
+// ======================================================
+//  Main Setup (保持不變)
+// ======================================================
+void setup() {
+  Wire.begin();
+  Serial.begin(115200);
+  Serial.println("\n\nESP8266 Pure Forwarder v11.0 (32-Byte Hard Limit) Booting...");
+  delay(1000);
+
+  Serial1.begin(ARM2_SERIAL_BAUDRATE);
+  Serial.print("Serial1 (GPIO2 TX) for Arm 2 started at "); Serial.print(ARM2_SERIAL_BAUDRATE); Serial.println(" bps (for logging/backup).");
+
+  if (SERVO2_PIN == ELECTROMAGNET_PIN) {
+    Serial.println("\n!!! CRITICAL WARNING: SERVO2_PIN and ELECTROMAGNET_PIN are conflicting!");
+  }
+
+  servo1.attach(SERVO1_PIN); servo2.attach(SERVO2_PIN); servo3.attach(SERVO3_PIN);
+  servo4.attach(SERVO4_PIN); servo5.attach(SERVO5_PIN);
+  servo1.write(INITIAL_ANGLE); servo2.write(INITIAL_ANGLE); servo3.write(INITIAL_ANGLE);
+  servo4.write(INITIAL_ANGLE); servo5.write(INITIAL_ANGLE);
+  pinMode(ELECTROMAGNET_PIN, OUTPUT);
+  digitalWrite(ELECTROMAGNET_PIN, LOW);
+  Serial.println("Arm 1 Hardware Initialized.");
+
+  Serial.println("-----------------------------------------");
+  Serial.println("Setting up Online Mode (STA + MQTT)...");
+  wifiManager.setConnectTimeout(60);
+  if (!wifiManager.autoConnect("ESP8266_Arm_Setup")) {
+    Serial.println("Failed to connect to WiFi and hit timeout -> Restarting...");
+    delay(3000);
+    ESP.restart();
+    delay(5000);
+  }
+
+  Serial.println("\nConnected to WiFi!");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+  client.setServer(mqtt_server, mqtt_port);
+  client.setCallback(callback);
+  
+  Serial.println("-----------------------------------------");
+  Serial.println("Setup complete. Entering main loop...");
+}
+
+// ======================================================
+//  Main Loop - *** [MODIFIED] 強制執行32位元組發送限制 ***
+// ======================================================
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop(); // 讓 MQTT 客戶端在背景處理接收
+
+  // 檢查佇列中是否有待發送的訊息
+  if (queueReadIndex != queueWriteIndex) {
+    // 從 char 陣列佇列中讀取完整訊息
+    char* fullMessage = messageQueue[queueReadIndex];
+    queueReadIndex = (queueReadIndex + 1) % MESSAGE_QUEUE_SIZE;
+
+    // --- [核心修正] ---
+    // 1. 計算原始訊息的長度
+    size_t originalLength = strlen(fullMessage);
+
+    // 2. 決定實際要發送的位元組數：取 原始長度 和 32 之間的較小值
+    size_t bytesToSend = min((size_t)I2C_TRANSMIT_LIMIT, originalLength);
+
+    // 3. 透過I2C發送，明確指定長度
+    Wire.beginTransmission(SLAVE_ADDRESS);
+    Wire.write((uint8_t*)fullMessage, bytesToSend);
+    Wire.endTransmission();
+    
+    // --- [核心修正] ---
+    // 4. 為了日誌記錄，建立一個被截斷訊息的副本
+    char truncatedMessage[I2C_TRANSMIT_LIMIT + 1];
+    memcpy(truncatedMessage, fullMessage, bytesToSend);
+    truncatedMessage[bytesToSend] = '\0'; // 確保日誌輸出的字串有結尾
+
+    // 5. 在序列埠監控器上提供詳細的除錯資訊
+    Serial.printf("[I2C SENT] Original: \"%s\" (%d bytes)\n", fullMessage, originalLength);
+    if (originalLength > I2C_TRANSMIT_LIMIT) {
+        Serial.printf("  -> [TRUNCATED] Sent only first %d bytes: \"%s\"\n", bytesToSend, truncatedMessage);
+    } else {
+        Serial.printf("  -> Sent full message: \"%s\"\n", truncatedMessage);
+    }
+    
+    // 透過Serial1也發送被截斷的訊息 (可選，用於備用監控)
+    Serial1.print(truncatedMessage);
+
+    delay(I2C_SEND_DELAY_MS);
+  }
+}
