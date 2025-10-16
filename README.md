@@ -31,9 +31,9 @@ This project features a complete YOLOv11-nano pipeline for chess piece detection
 |-----------------|----------------------|
 | **Model** | YOLOv11-nano         |
 | **Dataset** | GameChess            |
-| **Input Size** | 1024×1024            |
-| **Batch Size** | 16                   |
-| **Epochs** | 100                  |
+| **Input Size** | 1536×1536            |
+| **Batch Size** | 12                   |
+| **Epochs** | 300                  |
 | **Framework** | PyTorch              |
 | **Edge Deployment** | TorchScript / ONNX   |
 
