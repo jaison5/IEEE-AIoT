@@ -125,8 +125,6 @@ Report issues
 
 Suggest improvements
 
-Please follow the contribution guidelines in CONTRIBUTING.md.
-
 ---
 
 ## 🙏 Acknowledgments
