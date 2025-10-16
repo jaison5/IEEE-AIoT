@@ -1,4 +1,4 @@
-# YOLOv11n Collaborator
+# A Modular AIoT Framework for Low-Latency Real-Time Robotic Teleoperation
 
 A lightweight, high-performance YOLOv11-nano model for detecting GameChess pieces in AIoT applications.
 
