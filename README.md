@@ -152,14 +152,12 @@ ROS and mobile app integration
 
 ---
 
-## 🤝 Collaborating
-Collaborating are welcome! You can:
+## 🤝 Collaboration 
+Collaboration is welcome! You can:
 
-Submit pull requests
-
-Report issues
-
-Suggest improvements
+- Submit pull requests
+- Report issues
+- Suggest improvements
 
 ---
 
