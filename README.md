@@ -47,8 +47,8 @@ This modular structure ensures smooth integration between vision, control, and c
 | Parameter       | Value                |
 |-----------------|----------------------|
 | **Model** | YOLOv11-nano         |
-| **Dataset** | GameChess            |
-| **Input Size** | 1536×1536            |
+| **Dataset** | Datasets            |
+| **Input Size** | 1024×1024            |
 | **Batch Size** | 12                   |
 | **Epochs** | 300                  |
 | **Framework** | PyTorch              |
