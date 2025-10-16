@@ -152,8 +152,8 @@ ROS and mobile app integration
 
 ---
 
-## 🤝 Contributing
-Contributions are welcome! You can:
+## 🤝 Collaborating
+Collaborating are welcome! You can:
 
 Submit pull requests
 
