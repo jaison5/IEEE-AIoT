@@ -1,4 +1,4 @@
-# YOLOv11n Detector
+# YOLOv11n Collaborator
 
 A lightweight, high-performance YOLOv11-nano model for detecting GameChess pieces in AIoT applications.
 
@@ -6,7 +6,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 
 ## 🤖 Overview
 
-This project features a complete YOLOv11-nano pipeline for chess piece detection:
+This project features a complete YOLOv11-nano pipeline for chess piece or workshop item detection:
 
 - Fast and efficient object detection suitable for edge devices
 - Easy-to-use training and evaluation scripts
@@ -72,13 +72,14 @@ python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img
 ## 💻 Usage
 Inference on New Images
 
-Bash
+```Bash
 python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/images --img 1024
+```
 Edge Deployment
 
-Bash
+```Bash
 python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
-
+```
 ---
 
 ## 📊 Performance Metrics
