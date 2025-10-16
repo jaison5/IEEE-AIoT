@@ -64,6 +64,9 @@ Evaluate the model performance after training:
 
 Bash
 python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img 1024
+
+---
+
 ##💻 Usage
 Inference on New Images
 
@@ -73,6 +76,9 @@ Edge Deployment
 
 Bash
 python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
+
+---
+
 ##📊 Performance Metrics
 Class	Precision	Recall	mAP@50	mAP@50-95
 Pawn	0.95	0.92	0.94	0.88
@@ -80,8 +86,14 @@ Rook	0.96	0.93	0.95	0.89
 Knight	0.94	0.91	0.93	0.87
 Bishop	0.95	0.92	0.94	0.88
 Queen	0.97	0.94	0.96	0.90
+
+---
+
 ##🖼️ Detection Examples
 Input Image	Predicted Output
+
+---
+
 ##🚀 Future Enhancements
 Edge inference failover mechanisms
 
@@ -92,6 +104,8 @@ Integration with encrypted, authenticated communication channels
 Multi-class AIoT perception for complex smart environments
 
 ROS and mobile app integration
+
+---
 
 ##🤝 Contributing
 Contributions are welcome! You can:
@@ -104,11 +118,15 @@ Suggest improvements
 
 Please follow the contribution guidelines in CONTRIBUTING.md.
 
+---
+
 ##🙏 Acknowledgments
 Ultralytics for the YOLO framework
 
 AIoT research community for continuous support
 
 Open-source contributors for dataset management and training scripts
+
+---
 
 ##⭐ If this repository helped your work, please give it a star!
