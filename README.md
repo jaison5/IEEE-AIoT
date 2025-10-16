@@ -101,13 +101,31 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 
 ## 📊 Performance Metrics
 
-| Class  | Precision | Recall | mAP@50 | mAP@50-95 |
-|--------|-----------|--------|--------|------------|
-| Pawn   | 0.95      | 0.92   | 0.94   | 0.88       |
-| Rook   | 0.96      | 0.93   | 0.95   | 0.89       |
-| Knight | 0.94      | 0.91   | 0.93   | 0.87       |
-| Bishop | 0.95      | 0.92   | 0.94   | 0.88       |
-| Queen  | 0.97      | 0.94   | 0.96   | 0.90       |
+| Class        | Images | Instances | Box Precision | Box Recall | mAP@50 | mAP@50-95 |
+|-------------|--------|-----------|---------------|------------|--------|------------|
+| Red King    | 16     | 16        | 0.992         | 0.904      | 0.992  | 0.637      |
+| Gold King   | 33     | 33        | 1.000         | 1.000      | 0.947  | 0.730      |
+| White Queen | 31     | 31        | 0.864         | 0.839      | 0.864  | 0.565      |
+| Blue Queen  | 31     | 31        | 1.000         | 0.611      | 1.000  | 0.612      |
+| White Rook  | 30     | 30        | 0.611         | 1.000      | 0.611  | 0.579      |
+| Blue Rook   | 31     | 31        | 0.761         | 0.968      | 0.761  | 0.640      |
+| White Knight| 25     | 25        | 0.995         | 1.000      | 0.995  | 0.667      |
+| Blue Knight | 34     | 34        | 0.953         | 0.602      | 0.953  | 0.630      |
+| White Bishop| 30     | 30        | 0.900         | 1.000      | 0.900  | 0.507      |
+| Blue Bishop | 34     | 34        | 0.914         | 1.000      | 0.914  | 0.643      |
+| White Pawn  | 32     | 32        | 1.000         | 0.881      | 1.000  | 0.701      |
+| Blue Pawn   | 39     | 39        | 0.868         | 1.000      | 0.868  | 0.709      |
+
+**Overall mAP:**  
+- mAP@50: 0.979~0.995  
+- mAP@50-95: 0.565~0.730  
+
+**Speed per image:**  
+- Preprocess: 0.2 ms  
+- Inference: 10.2 ms  
+- Loss: 0.0 ms  
+- Postprocess: 1.1 ms
+
 
 ---
 
