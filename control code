@@ -1,0 +1,253 @@
+// lib/ui/motor_control_page.dart
+import 'dart:async';
+import 'dart:convert'; // For jsonEncode/Decode
+import 'dart:math' as math; // For pi constant
+import 'package:flutter/foundation.dart'; // For kIsWeb
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:livekit_client/livekit_client.dart' as lk; // Use prefix
+import 'package:mqtt_client/mqtt_client.dart' show MqttConnectionState;
+import 'package:http/http.dart' as http; // For fetching token
+import 'package:url_launcher/url_launcher.dart';
+
+// Import provider and service definitions
+import '../providers/arm_controller_provider.dart';
+import '../services/mqtt_service.dart';
+
+// =========================================================================
+// --- Centralized Configuration for IK Gamepad Control ---
+// =========================================================================
+class IKConfig {
+  // --- Topics ---
+  static const String ikTopic = "servo/arm2/ik";
+  static const String clawTopic = "servo/arm2/clm";
+
+  // --- Value Ranges (IK Coordinates) ---
+  static const double minX = 50;
+  static const double maxX = 400;
+  static const double minY = -300;
+  static const double maxY = 300;
+  static const double minZ = 10;
+  static const double maxZ = 350;
+  
+  // --- Step Values (Amount to change per button press) ---
+  static const double stepX = 5.0;
+  static const double stepY = 5.0;
+  static const double stepZ = 5.0;
+  static const int clawStepValue = 20; // For incremental claw control
+
+  // --- Axis Mapping for Gamepad Controls ---
+  static const Map<String, String> gamepadAxisMapping = {
+    'leftPadVertical': 'x',   // Left D-Pad Up/Down controls IK 'x' axis (Forward/Back)
+    'rightPadHorizontal': 'y',// Right D-Pad Left/Right controls IK 'y' axis (Left/Right)
+    'rightPadVertical': 'z',  // Right D-Pad Up/Down controls IK 'z' axis (Up/Down)
+  };
+
+  // --- Axis Inversion Control ---
+  static const bool invertX = true;
+  static const bool invertY = false;
+  static const bool invertZ = false;
+
+  // --- MODIFIED: 新增旋轉軸向的反向控制 ---
+  static const bool invertRX = false; // 設定為 true 來反向 rx (roll)
+  static const bool invertRY = false; // 設定為 true 來反向 ry (pitch/yaw)
+  static const bool invertRZ = true;  // 設定為 true 來反向 rz (pitch/yaw)
+  // --- END MODIFIED ---
+
+  // --- Claw Orientation Values (in Radians) ---
+  static const double clawUpRad = math.pi / 2; // 手腕朝前 (1.57)
+  static const double clawDownRad = math.pi;   // 手腕朝下 (3.14)
+
+  // --- Reset / Zero State (Rotation values are in RADIANS) ---
+  static final Map<String, double> resetState = {
+    'x': 150,
+    'y': 0,
+    'z': 150,
+    'rx': 0,
+    'ry': math.pi, // 預設朝下 (3.14 radians)
+    'rz': 0,
+  };
+
+  // --- Claw Value Limits ---
+  static const int clawMin = 0;
+  static const int clawMax = 180;
+}
+
+
+// =======================================================
+// ========== INVERSE KINEMATICS IMPLEMENTATION ==========
+//          (REMOVED - Now handled by ESP8266)
+// =======================================================
+
+
+// --- LiveKit Receiver Widget ---
+class LiveKitReceiverWidget extends StatefulWidget {
+  final String url;
+  final String token;
+  const LiveKitReceiverWidget({Key? key, required this.url, required this.token})
+      : super(key: key);
+
+  @override
+  _LiveKitReceiverWidgetState createState() => _LiveKitReceiverWidgetState();
+}
+
+class _LiveKitReceiverWidgetState extends State<LiveKitReceiverWidget> {
+  lk.Room? _room;
+  lk.RemoteVideoTrack? _videoTrack;
+  bool _connecting = false;
+  String? _connectionError;
+  Function? _trackSubscribedDisposer;
+  Function? _roomDisposer;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.token.isNotEmpty) {
+       WidgetsBinding.instance.addPostFrameCallback((_) => _connectRoom());
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant LiveKitReceiverWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.url != oldWidget.url || widget.token != oldWidget.token) {
+       _disconnectRoom().then((_) {
+         if (widget.token.isNotEmpty && mounted) {
+           _connectRoom();
+         }
+       });
+    }
+  }
+
+  @override
+  void dispose() {
+    _disconnectRoom();
+    super.dispose();
+  }
+
+  Future<void> _disconnectRoom() async {
+     _roomDisposer?.call();
+     _trackSubscribedDisposer?.call();
+     if (_room != null) {
+       await _room?.disconnect();
+     }
+     _room = null;
+     if (mounted) {
+         setState(() { _videoTrack = null; });
+     }
+  }
+
+  Future<void> _connectRoom() async {
+     if (_connecting || (_room?.connectionState == lk.ConnectionState.connected || _room?.connectionState == lk.ConnectionState.connecting)) return;
+     if (widget.token.isEmpty) { setState(() { _connectionError = "Token is missing."; }); return; }
+
+     setState(() { _connecting = true; _videoTrack = null; _connectionError = null; });
+
+     try {
+       await _disconnectRoom();
+       final room = lk.Room();
+       _room = room;
+       _roomDisposer = room.events.listen((event) { if (mounted) setState(() {}); if (event is lk.RoomDisconnectedEvent) { if (mounted) setState(() { _videoTrack = null; }); } });
+       _trackSubscribedDisposer = room.events.on<lk.TrackSubscribedEvent>((event) { if (event.track is lk.RemoteVideoTrack && mounted) { setState(() => _videoTrack = event.track as lk.RemoteVideoTrack); } });
+       await room.connect( widget.url, widget.token, roomOptions: const lk.RoomOptions( adaptiveStream: true, dynacast: true,),);
+       if (mounted && _videoTrack == null && room.connectionState == lk.ConnectionState.connected) { _checkForExistingTracks(room); }
+       if (mounted) setState(() => _connecting = false);
+     } catch (e) {
+       if (mounted) { setState(() { _connecting = false; _connectionError = 'Connection failed: $e'; }); }
+       await _disconnectRoom();
+     }
+  }
+
+  void _checkForExistingTracks(lk.Room room) {
+     for (final participant in room.remoteParticipants.values) {
+       for (final pub in participant.videoTrackPublications) {
+         if (pub.track != null && pub.track is lk.RemoteVideoTrack) {
+           if (mounted) { setState(() => _videoTrack = pub.track as lk.RemoteVideoTrack); return; }
+         }
+       }
+     }
+   }
+
+   @override
+  Widget build(BuildContext context) {
+    Widget content;
+    if (_connecting) { content = const Center(child: CircularProgressIndicator(color: Colors.white)); }
+    else if (_connectionError != null) { content = Center(child: Padding(padding: const EdgeInsets.all(16.0), child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [ const Icon(Icons.error_outline, color: Colors.red, size: 40), const SizedBox(height: 10), Text('LiveKit Error:', style: TextStyle(color: Colors.red[200], fontWeight: FontWeight.bold)), const SizedBox(height: 5), Text(_connectionError!, textAlign: TextAlign.center, style: const TextStyle(color: Colors.redAccent)), const SizedBox(height: 20), ElevatedButton.icon( icon: const Icon(Icons.refresh), label: const Text("Retry Connection"), onPressed: widget.token.isNotEmpty ? _connectRoom : null, style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[700]),)],),),); }
+    else if (_videoTrack != null) { content = lk.VideoTrackRenderer(_videoTrack!); }
+    else if (_room?.connectionState == lk.ConnectionState.connected) { content = const Center(child: Text('Connected, waiting for video stream...', style: TextStyle(color: Colors.grey))); }
+    else { content = Center( child: Column( mainAxisAlignment: MainAxisAlignment.center, children: [ const Text('Stream unavailable', style: TextStyle(color: Colors.grey)), const SizedBox(height: 15), if (_room?.connectionState != lk.ConnectionState.connecting && widget.token.isNotEmpty) ElevatedButton.icon( icon: const Icon(Icons.refresh), label: const Text("Connect Stream"), onPressed: _connectRoom, style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[700]),), if (widget.token.isEmpty) const Text('Missing connection token.', style: TextStyle(color: Colors.orange)),],)); }
+    return Container( color: Colors.black, width: double.infinity, height: double.infinity, child: content,);
+  }
+}
+
+// === FeedbackControlButton Widget ===
+class FeedbackControlButton extends StatefulWidget {
+  final Widget icon;
+  final VoidCallback onUpdate;
+  final double padding;
+
+  const FeedbackControlButton({
+    Key? key,
+    required this.icon,
+    required this.onUpdate,
+    this.padding = 8.0,
+  }) : super(key: key);
+
+  @override
+  _FeedbackControlButtonState createState() => _FeedbackControlButtonState();
+}
+
+class _FeedbackControlButtonState extends State<FeedbackControlButton> {
+  bool _isPressed = false;
+  Timer? _motorUpdateTimer;
+
+  @override
+  void dispose() {
+    _motorUpdateTimer?.cancel();
+    super.dispose();
+  }
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _isPressed = true;
+    });
+    _motorUpdateTimer?.cancel();
+    widget.onUpdate(); // Fire once immediately
+    _motorUpdateTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      widget.onUpdate();
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _isPressed = false;
+    });
+    _motorUpdateTimer?.cancel();
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _isPressed = false;
+    });
+    _motorUpdateTimer?.cancel();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final double elevation = _isPressed ? 1.0 : 4.0;
+    final Color color = _isPressed ? theme.primaryColor.withOpacity(0.1) : theme.cardColor;
+
+    return GestureDetector(
+      onTapDown: _handleTapDown,
+      onTapUp: _handleTapUp,
+      onTapCancel: _handleTapCancel,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 100),
+        padding: EdgeInsets.all(widget.padding),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: _isPressed
