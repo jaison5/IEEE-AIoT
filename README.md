@@ -82,7 +82,7 @@ python train.py --model yolov11-nano.pt --data dataset.yaml --epochs 100 --batch
 Evaluate the model performance after training:
 
 ```Bash
-python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img 1024```
+python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img 1024
 ```
 ---
 
