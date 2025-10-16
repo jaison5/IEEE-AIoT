@@ -1,4 +1,4 @@
-# YOLOv11-nano GameChess Detector
+# YOLOv11-n Detector
 
 A lightweight, high-performance YOLOv11-nano model for detecting GameChess pieces in AIoT applications.
 
@@ -56,7 +56,7 @@ Update `dataset.yaml` with paths to images and class names.
 
 ### 2. Train YOLOv11-nano
 
-```bash
+bash
 python train.py --model yolov11-nano.pt --data dataset.yaml --epochs 100 --batch-size 16 --img 1024
 3. Evaluation
 
@@ -67,7 +67,7 @@ python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img
 
 ---
 
-##💻 Usage
+## 💻 Usage
 Inference on New Images
 
 Bash
@@ -79,7 +79,7 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 
 ---
 
-##📊 Performance Metrics
+## 📊 Performance Metrics
 Class	Precision	Recall	mAP@50	mAP@50-95
 Pawn	0.95	0.92	0.94	0.88
 Rook	0.96	0.93	0.95	0.89
@@ -89,12 +89,12 @@ Queen	0.97	0.94	0.96	0.90
 
 ---
 
-##🖼️ Detection Examples
+## 🖼️ Detection Examples
 Input Image	Predicted Output
 
 ---
 
-##🚀 Future Enhancements
+## 🚀 Future Enhancements
 Edge inference failover mechanisms
 
 Formal usability and latency benchmarking
@@ -107,7 +107,7 @@ ROS and mobile app integration
 
 ---
 
-##🤝 Contributing
+## 🤝 Contributing
 Contributions are welcome! You can:
 
 Submit pull requests
@@ -120,7 +120,7 @@ Please follow the contribution guidelines in CONTRIBUTING.md.
 
 ---
 
-##🙏 Acknowledgments
+## 🙏 Acknowledgments
 Ultralytics for the YOLO framework
 
 AIoT research community for continuous support
@@ -129,4 +129,4 @@ Open-source contributors for dataset management and training scripts
 
 ---
 
-##⭐ If this repository helped your work, please give it a star!
+## ⭐ If this repository helped your work, please give it a star!
