@@ -90,7 +90,12 @@ Queen	0.97	0.94	0.96	0.90
 ---
 
 ## 🖼️ Detection Examples
-Input Image	Predicted Output
+
+| Input Image | Predicted Output |
+|-------------|----------------|
+| ![input1](images/input1.jpg) | ![output1](images/output1.jpg) |
+| ![input2](images/input2.jpg) | ![output2](images/output2.jpg) |
+
 
 ---
 
@@ -129,4 +134,4 @@ Open-source contributors for dataset management and training scripts
 
 ---
 
-## ⭐ If this repository helped your work, please give it a star!
+## Thanks for your watching!
