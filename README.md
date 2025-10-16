@@ -133,8 +133,8 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 
 | Input Image | Predicted Output |
 |-------------|----------------|
-| ![input1](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/train_batch0.jpg) | ![output1](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/val_batch0_pred.jpg) |
-| ![input2](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/train_batch1.jpg) | ![output2](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/val_batch1_pred.jpg) |
+| ![input1](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/train_batch0.jpg)| ![output1](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/val_batch0_pred.jpg)|
+| ![input2](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/train_batch1.jpg)| ![output2](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/result/val_batch1_pred.jpg)|
 
 
 ---
