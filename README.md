@@ -20,10 +20,15 @@ This project features a complete YOLOv11-nano pipeline for chess piece or worksh
 The AIoT teleoperation framework integrates multiple components for real-time operation:
 
 - **Camera data** is acquired through [`02.webcamera.py`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/02.webcamera.py).  
-- **I2C communication** and **serial data handling** are implemented in [`robot_armT2.ino`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/robot_armT2.ino), enabling synchronized robot arm control.  
-- **Training configuration and prompts** originate from [`train2.py`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/train2.py), defining the dataset paths, augmentation pipeline, and learning hyperparameters.
+- **ESP8266 Controller** (`ESP8266`): Handles I2C and Serial communications, receives MQTT messages, and drives the servo motors of the robotic arm. Supports message queueing with 32-byte transmission limit.  
+  GitHub link: [ESP8266 code](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/ESP8266)  
+- **Flutter Hand Control** (`control code`): Provides user interface for arm manipulation, inverse kinematics (IK), claw control, and LiveKit video streaming. Includes incremental motion via long-press buttons and axis inversion options.  
+  GitHub link: [Control code](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/control%20code)  
+- **I2C & Serial communication** are integrated with [`robot_armT2.ino`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/robot_armT2.ino).  
+- **Training configuration** and prompts are defined in [`train2.py`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/train2.py).
 
 This modular structure ensures smooth integration between vision, control, and communication layers within the AIoT ecosystem.
+
 
 ---
 
