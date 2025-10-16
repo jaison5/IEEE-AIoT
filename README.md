@@ -1,4 +1,4 @@
-# YOLOv11-n Detector
+# YOLOv11n Detector
 
 A lightweight, high-performance YOLOv11-nano model for detecting GameChess pieces in AIoT applications.
 
@@ -93,8 +93,8 @@ Queen	0.97	0.94	0.96	0.90
 
 | Input Image | Predicted Output |
 |-------------|----------------|
-| ![input1](images/input1.jpg) | ![output1](images/output1.jpg) |
-| ![input2](images/input2.jpg) | ![output2](images/output2.jpg) |
+| ![input1](https://github.com/jaison5/IEEE-AIoT/blob/main/exp3/train_batch0.jpg) | ![output1](https://github.com/jaison5/IEEE-AIoT/blob/main/exp3/val_batch0_pred.jpg) |
+| ![input2](https://github.com/jaison5/IEEE-AIoT/blob/main/exp3/train_batch1.jpg) | ![output2](https://github.com/jaison5/IEEE-AIoT/blob/main/exp3/val_batch1_pred.jpg) |
 
 
 ---
