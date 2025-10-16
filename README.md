@@ -6,7 +6,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 
 ## 🤖 Overview
 
-This project features a complete YOLOv11-nano pipeline for chess piece or workshop item detection:
+This project features a complete YOLOv11-nano pipeline for chess piece or workshop items detection:
 
 - Fast and efficient object detection suitable for edge devices
 - Easy-to-use training and evaluation scripts
