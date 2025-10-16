@@ -57,7 +57,8 @@ Update `dataset.yaml` with paths to images and class names.
 ### 2. Train YOLOv11-nano
 
 ```bash
-python train.py --model yolov11-nano.pt --data dataset.yaml --epochs 100 --batch-size 16 --img 1024```
+python train.py --model yolov11-nano.pt --data dataset.yaml --epochs 100 --batch-size 16 --img 1024
+```
 
 ### 3. Evaluation
 
@@ -65,7 +66,7 @@ Evaluate the model performance after training:
 
 ```Bash
 python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img 1024```
-
+```
 ---
 
 ## 💻 Usage
