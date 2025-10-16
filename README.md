@@ -15,6 +15,18 @@ This project features a complete YOLOv11-nano pipeline for chess piece or worksh
 
 ---
 
+### 🔗 System Module Integration
+
+The AIoT teleoperation framework integrates multiple components for real-time operation:
+
+- **Camera data** is acquired through [`02.webcamera.py`](https://github.com/jaison5/IEEE-AIoT/blob/main/02.webcamera.py).  
+- **I2C communication** and **serial data handling** are implemented in [`robot_armT2.ino`](https://github.com/jaison5/IEEE-AIoT/blob/main/robot_armT2.ino), enabling synchronized robot arm control.  
+- **Training configuration and prompts** originate from [`train2.py`](https://github.com/jaison5/IEEE-AIoT/blob/main/train2.py), defining the dataset paths, augmentation pipeline, and learning hyperparameters.
+
+This modular structure ensures smooth integration between vision, control, and communication layers within the AIoT ecosystem.
+
+---
+
 ## ✨ Features
 
 - Lightweight YOLOv11-nano model
