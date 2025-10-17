@@ -171,3 +171,5 @@ Open-source contributors for dataset management and training scripts
 ---
 
 ## Thanks for your watching!
+Shih-Chieh Sun, Yun-Cheng Tsai, “A Modular AIoT Framework for Low-Latency
+Real-Time Robotic Teleoperation in Smart Cities,” IEEE AIoT, 2025.
