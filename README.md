@@ -14,15 +14,15 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
   - [Configure Dataset](#1-configure-dataset)
   - [Train YOLOv11-nano](#2-train-yolov11-nano)
   - [Evaluation](#3-evaluation)
-- [💻 Usage](#💻-usage)
+- [💻 Usage](#usage)
   - [Inference on New Images](#inference-on-new-images)
   - [Edge Deployment](#edge-deployment)
-- [📊 Performance Metrics](#📊-performance-metrics)
-- [🖼️ Detection Examples](#🖼️-detection-examples)
-- [🚀 Future Enhancements](#🚀-future-enhancements)
-- [🤝 Collaboration](#🤝-collaboration)
-- [🙏 Acknowledgements](#🙏-acknowledgements)
-- [📝 License](#📝-license)
+- [📊 Performance Metrics](#performance-metrics)
+- [🖼️ Detection Examples](#detection-examples)
+- [🚀 Future Enhancements](#future-enhancements)
+- [🤝 Collaboration](#collaboration)
+- [🙏 Acknowledgements](#acknowledgements)
+- [📝 License](#license)
 ## 🤖 Overview <a id="overview"></a>
 
 
@@ -106,7 +106,7 @@ python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img
 ```
 ---
 
-## 💻 Usage
+## 💻 Usage <a id="usage"></a>
 Inference on New Images
 
 ```Bash
@@ -119,7 +119,7 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 ```
 ---
 
-## 📊 Performance Metrics
+## 📊 Performance Metrics <a id="performance-metrics"></a>
 
 | Class        | Images | Instances | Box Precision | Box Recall | mAP@50 | mAP@50-95 |
 |-------------|--------|-----------|---------------|------------|--------|------------|
@@ -149,7 +149,7 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 
 ---
 
-## 🖼️ Detection Examples
+## 🖼️ Detection Examples <a id="detection-examples"></a>
 
 | Input Image | Predicted Output |
 |-------------|----------------|
@@ -159,7 +159,7 @@ python export.py --weights runs/train/exp/weights/best.pt --include torchscript 
 
 ---
 
-## 🚀 Future Enhancements
+## 🚀 Future Enhancements <a id="future-enhancements"></a>
 Edge inference failover mechanisms
 
 Formal usability and latency benchmarking
@@ -172,7 +172,7 @@ ROS and mobile app integration
 
 ---
 
-## 🤝 Collaboration 
+## 🤝 Collaboration <a id="collaboration"></a>
 Collaboration is welcome! You can:
 
 - Submit pull requests
@@ -181,7 +181,7 @@ Collaboration is welcome! You can:
 
 ---
 
-### 🙏 Acknowledgements
+### 🙏 Acknowledgements <a id="acknowledgements"></a>
 
 The support and contributions from the open-source community have been truly phenomenal.  
 This project would not have been possible without the collective efforts of developers, researchers, and contributors who continuously push the boundaries of innovation.  
@@ -202,7 +202,7 @@ Your work and generosity make innovation possible.
 
 ---
 
-## 📝 License
+## 📝 License <a id="license"></a>
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/LICENSE) file for details.
 
