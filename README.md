@@ -5,7 +5,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 ---
 
 ## 🔗Contents
-- [Overview](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-overview)
+- [Overview][🤖 Overview]
 - [System Module Integration](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-system-module-integration)
 - [Features](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-features)
 - [Specifications](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-specifications)
