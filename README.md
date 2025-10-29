@@ -23,8 +23,8 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 - [🤝 Collaboration](#🤝-collaboration)
 - [🙏 Acknowledgements](#🙏-acknowledgements)
 - [📝 License](#📝-license)
-## 🤖 Overview
-<a id="overview"></a>
+## 🤖 Overview <a id="overview"></a>
+
 
 This project features a complete YOLOv11-nano pipeline for chess piece or workshop items detection:
 
