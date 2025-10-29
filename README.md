@@ -184,7 +184,7 @@ Your work and generosity make innovation possible.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/LICENSE)file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/LICENSE) file for details.
 
 ---
 
