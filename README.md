@@ -161,12 +161,20 @@ Collaboration is welcome! You can:
 
 ---
 
-## 🙏 Acknowledgments
-Ultralytics for the YOLO framework
+### 🙏 Acknowledgments
 
-AIoT research community for continuous support
+The support and innovation from the open-source community have been truly inspiring.  
+Special thanks to the amazing contributors who make these platforms possible and accessible for developers worldwide.
 
-Open-source contributors for dataset management and training scripts
+- **[Ultralytics](https://github.com/ultralytics/ultralytics?tab=contributing-ov-file)** — for providing the YOLO framework and continuous support in advancing computer vision research.  
+- **[tzapu (WiFiManager)](https://github.com/tzapu/WiFiManager?tab=readme-ov-file#contributions-and-thanks)** — for developing and maintaining the WiFiManager library, enabling flexible ESP8266 web configuration and IoT integration.  
+- **AIoT research community** — for continuous support and collaboration in intelligent system design.  
+- **Open-source contributors** — for their efforts in dataset management, training scripts, and toolchain development.
+
+This project builds upon the strong foundation laid by these open-source efforts.  
+Your work and generosity make innovation possible.
+
+**Thank you for your invaluable contributions!** 💡
 
 ---
 
