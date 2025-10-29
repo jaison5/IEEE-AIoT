@@ -161,20 +161,26 @@ Collaboration is welcome! You can:
 
 ---
 
-### 🙏 Acknowledgments
+### 🙏 Acknowledgements
 
-The support and innovation from the open-source community have been truly inspiring.  
-Special thanks to the amazing contributors who make these platforms possible and accessible for developers worldwide.
+The support and contributions from the open-source community have been truly phenomenal.  
+This project would not have been possible without the collective efforts of developers, researchers, and contributors who continuously push the boundaries of innovation.  
+Your dedication and generosity embody the true spirit of open collaboration — thank you all for making this journey meaningful.
 
-- **[Ultralytics](https://github.com/ultralytics/ultralytics?tab=contributing-ov-file)** — for providing the YOLO framework and continuous support in advancing computer vision research.  
-- **[tzapu (WiFiManager)](https://github.com/tzapu/WiFiManager?tab=readme-ov-file#contributions-and-thanks)** — for developing and maintaining the WiFiManager library, enabling flexible ESP8266 web configuration and IoT integration.  
-- **AIoT research community** — for continuous support and collaboration in intelligent system design.  
-- **Open-source contributors** — for their efforts in dataset management, training scripts, and toolchain development.
+Special thanks to:
+
+- [**Ultralytics**](https://github.com/ultralytics/ultralytics) — for providing the **YOLO framework**, which serves as the foundation for the object detection module in this project.  
+- [**tzapu**](https://github.com/tzapu/WiFiManager?tab=readme-ov-file#contributions-and-thanks) — for developing and maintaining the **ESP8266 WiFiManager**, enabling seamless network configuration for embedded systems.  
+- [**Gavinkuo123456**](https://github.com/Gavinkuo123456/CE2T-6-Axis-Robotic-Arm) — for sharing the **6-axis robotic arm design and control algorithms**, which inspired the robotic manipulation logic used here.  
+- **AIoT research community** — for ongoing guidance, shared insights, and collaborative support throughout the development process.  
+- **Open-source contributors** — for dataset management, training scripts, and continuous improvements that made this project possible.
 
 This project builds upon the strong foundation laid by these open-source efforts.  
 Your work and generosity make innovation possible.
 
-**Thank you for your invaluable contributions!** 💡
+**Thank you for your invaluable contributions!** 
+## 📝 License
+
 
 ---
 
