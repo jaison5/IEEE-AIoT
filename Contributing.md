@@ -25,10 +25,10 @@ We welcome all kinds of contributions — bug reports, new features, dataset imp
 - For dataset or model updates: update YAML or dataset files under `/datasets/20250105`, update `train2.py` or other scripts accordingly.
 - For documentation: update README.md, include relevant links, images, or examples.
 5. **Commit your changes**
-  ```bash
-  git add .
-  git commit -m "Add feature: description"
-  ```
+   ```bash
+   git add .
+   git commit -m "Add feature: description"
+   ```
 6. **Push your branch and open a Pull Request (PR)**
    ```bash
    git push origin feature/my-feature
@@ -63,12 +63,12 @@ Training and evaluation scripts: `train2.py`, `01.train.py`, `/code folder`
 ## ✅ Pull Request Checklist
 Before submitting your PR, please ensure:
 - [ ] Your changes are described comprehensively in the PR description
-- [ ]Code follows the existing style and conventions
-- [ ]Any new dependencies are documented in README.md or requirements.txt
-- [ ]All existing tests (if any) pass
-- [ ]For dataset or model changes: updated performance metrics or comparative results included
-- [ ]Documentation updated (e.g., images, tables, README sections)
-- [ ]You have signed your commits with a valid DCO (if required)
+- [ ] Code follows the existing style and conventions
+- [ ] Any new dependencies are documented in README.md or requirements.txt
+- [ ] All existing tests (if any) pass
+- [ ] For dataset or model changes: updated performance metrics or comparative results included
+- [ ] Documentation updated (e.g., images, tables, README sections)
+- [ ] You have signed your commits with a valid DCO (if required)
 
 ---
 
