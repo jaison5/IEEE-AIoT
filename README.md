@@ -52,7 +52,7 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## ✨ Features <c id="features"></c>
+## ✨ Features <a id="features"></a>
 
 - Lightweight YOLOv11-nano model
 - Training on custom GameChess dataset
