@@ -5,12 +5,24 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 ---
 
 ## 🔗Contents
-- [🤖 Overview](#overview)
-- [System Module Integration](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-system-module-integration)
-- [Features](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-features)
-- [Specifications](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-specifications)
-- [Hardware Requirements](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#%EF%B8%8F-hardware-requirements)
-
+- [🤖 Overview](#🤖-overview)
+- [🔗 System Module Integration](#🔗-system-module-integration)
+- [✨ Features](#✨-features)
+- [📋 Specifications](#📋-specifications)
+- [🛠️ Hardware Requirements](#🛠️-hardware-requirements)
+- [🔧 Training Instructions](#🔧-training-instructions)
+  - [Configure Dataset](#configure-dataset)
+  - [Train YOLOv11-nano](#train-yolov11-nano)
+  - [3. Evaluation](#3-evaluation)
+- [💻 Usage](#💻-usage)
+  - [Inference on New Images](#inference-on-new-images)
+  - [Edge Deployment](#edge-deployment)
+- [📊 Performance Metrics](#📊-performance-metrics)
+- [🖼️ Detection Examples](#🖼️-detection-examples)
+- [🚀 Future Enhancements](#🚀-future-enhancements)
+- [🤝 Collaboration](#🤝-collaboration)
+- [🙏 Acknowledgements](#🙏-acknowledgements)
+- [📝 License](#📝-license)
 ## 🤖 Overview
 
 This project features a complete YOLOv11-nano pipeline for chess piece or workshop items detection:
