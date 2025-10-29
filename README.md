@@ -35,8 +35,8 @@ This project features a complete YOLOv11-nano pipeline for chess piece or worksh
 
 ---
 
-### 🔗 System Module Integration
-<b id="system-module-integration"></b>
+### 🔗 System Module Integration <b id="system-module-integration"></b>
+
 The AIoT teleoperation framework integrates multiple components for real-time operation:
 
 - **Camera data** is acquired through [`02.webcamera.py`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/02.webcamera.py).  
