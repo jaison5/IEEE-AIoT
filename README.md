@@ -4,6 +4,10 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 
 ---
 
+## Contents
+- [Overview](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-overview)
+- [System Module Integration](https://github.com/jaison5/Robotic-AIoT-Max?tab=readme-ov-file#-system-module-integration)
+
 ## 🤖 Overview
 
 This project features a complete YOLOv11-nano pipeline for chess piece or workshop items detection:
