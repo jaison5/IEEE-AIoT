@@ -6,7 +6,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 
 ## 🔗Contents
 - [🤖 Overview](#overview)
-- [🔗 System Module Integration](#🔗-system-module-integration)
+- [🔗 System Module Integration](#system-module-integration)
 - [✨ Features](#✨-features)
 - [📋 Specifications](#📋-specifications)
 - [🛠️ Hardware Requirements](#🛠️-hardware-requirements)
