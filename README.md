@@ -5,7 +5,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 ---
 
 ## 🔗Contents
-- [🤖 Overview](#🤖-overview)
+- [🤖 Overview](#overview)
 - [🔗 System Module Integration](#🔗-system-module-integration)
 - [✨ Features](#✨-features)
 - [📋 Specifications](#📋-specifications)
@@ -13,7 +13,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 - [🔧 Training Instructions](#🔧-training-instructions)
   - [Configure Dataset](#1-configure-dataset)
   - [Train YOLOv11-nano](#2-train-yolov11-nano)
-  - [3. Evaluation](#3-evaluation)
+  - [Evaluation](#3-evaluation)
 - [💻 Usage](#💻-usage)
   - [Inference on New Images](#inference-on-new-images)
   - [Edge Deployment](#edge-deployment)
@@ -24,6 +24,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 - [🙏 Acknowledgements](#🙏-acknowledgements)
 - [📝 License](#📝-license)
 ## 🤖 Overview
+<a id="overview"></a>
 
 This project features a complete YOLOv11-nano pipeline for chess piece or workshop items detection:
 
