@@ -7,8 +7,8 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 ## 🔗Contents
 - [🤖 Overview](#overview)
 - [🔗 System Module Integration](#system-module-integration)
-- [✨ Features](#✨-features)
-- [📋 Specifications](#📋-specifications)
+- [✨ Features](#features)
+- [📋 Specifications](#specifications)
 - [🛠️ Hardware Requirements](#🛠️-hardware-requirements)
 - [🔧 Training Instructions](#🔧-training-instructions)
   - [Configure Dataset](#1-configure-dataset)
@@ -52,7 +52,7 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## ✨ Features
+## ✨ Features <c id="features"></c>
 
 - Lightweight YOLOv11-nano model
 - Training on custom GameChess dataset
