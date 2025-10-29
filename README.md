@@ -179,6 +179,9 @@ This project builds upon the strong foundation laid by these open-source efforts
 Your work and generosity make innovation possible.
 
 **Thank you for your invaluable contributions!** 
+
+---
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/jaison5/Robotic-AIoT-Max/blob/main/LICENSE)file for details.
