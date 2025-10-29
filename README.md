@@ -107,12 +107,12 @@ python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img
 ---
 
 ## 💻 Usage <a id="usage"></a>
-Inference on New Images
+Inference on New Images <a id="inference-on-new-images"></a>
 
 ```Bash
 python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/images --img 1024
 ```
-Edge Deployment
+Edge Deployment <a id="edge-deployment"></a>
 
 ```Bash
 python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
