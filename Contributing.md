@@ -21,14 +21,18 @@ We welcome all kinds of contributions — bug reports, new features, dataset imp
    git checkout -b feature/my-feature
 
 4. **Make your changes**
-For code changes: update files under /code, /datasets, /final model, or other relevant folders.
-For dataset or model updates: update YAML or dataset files under /datasets/20250105, update train*.py or other scripts accordingly.
-For documentation: update README.md, include relevant links, images, or examples.
-Commit your changes
-git add .
-git commit -m "Add feature: description"
-Push your branch and open a Pull Request (PR)
-git push origin feature/my-feature
+- For code changes: update files under /code, /datasets, /final model, or other relevant folders.
+- For dataset or model updates: update YAML or dataset files under /datasets/20250105, update train*.py or other scripts accordingly.
+- For documentation: update README.md, include relevant links, images, or examples.
+5. **Commit your changes**
+  ```bash
+  git add .
+  git commit -m "Add feature: description"
+
+6. **Push your branch and open a Pull Request (PR)**
+   ```bash
+   git push origin feature/my-feature
+
 Then open a PR to the main branch of this repository. In your PR description, please explain:
 What you changed
 Why the change is needed
