@@ -181,7 +181,7 @@ Your work and generosity make innovation possible.
 **Thank you for your invaluable contributions!** 
 ## 📝 License
 
-
+This project is licensed under the MIT License - see the [LICENSE]()file for details.
 ---
 
 ## Thanks for your watching!
