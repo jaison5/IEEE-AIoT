@@ -9,8 +9,8 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 - [🔗 System Module Integration](#system-module-integration)
 - [✨ Features](#features)
 - [📋 Specifications](#specifications)
-- [🛠️ Hardware Requirements](#🛠️-hardware-requirements)
-- [🔧 Training Instructions](#🔧-training-instructions)
+- [🛠️ Hardware Requirements](#hardware-requirements)
+- [🔧 Training Instructions](#training-instructions)
   - [Configure Dataset](#1-configure-dataset)
   - [Train YOLOv11-nano](#2-train-yolov11-nano)
   - [Evaluation](#3-evaluation)
@@ -62,7 +62,7 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## 📋 Specifications
+## 📋 Specifications <a id="specifications"></a>
 
 | Parameter       | Value                |
 |-----------------|----------------------|
@@ -76,7 +76,7 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## 🛠️ Hardware Requirements
+## 🛠️ Hardware Requirements <a id="hardware-requirements"></a>
 
 - GPU recommended for training (CUDA-enabled)
 - Standard CPU sufficient for inference
@@ -85,7 +85,7 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## 🔧 Training Instructions
+## 🔧 Training Instructions <a id="training-instructions"></a>
 
 ### 1. Configure Dataset
 
