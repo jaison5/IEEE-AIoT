@@ -14,11 +14,11 @@ We welcome all kinds of contributions — bug reports, new features, dataset imp
 2. **Clone your fork locally**  
    ```bash
    git clone https://github.com/your-username/Robotic-AIoT-Max.git
-   cd Robotic-AIoT-Max```
+   cd Robotic-AIoT-Max
 
 3. **Create a new branch for your change**
    ```bash
-git checkout -b feature/my-feature```
+   git checkout -b feature/my-feature
 
 4. **Make your changes**
 For code changes: update files under /code, /datasets, /final model, or other relevant folders.
