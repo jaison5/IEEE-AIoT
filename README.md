@@ -72,7 +72,7 @@ This modular structure ensures smooth integration between vision, control, and c
 | **Batch Size** | 12                   |
 | **Epochs** | 300                  |
 | **Framework** | PyTorch              |
-| **Edge Deployment** | TorchScript / ONNX   |
+| **Edge Deployment** | ESP8266   |
 
 ---
 
