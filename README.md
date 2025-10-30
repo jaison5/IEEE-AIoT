@@ -114,7 +114,7 @@ python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/imag
 ```
 Edge Deployment <a id="edge-deployment"></a>
 
-```Bash
+```Bash python
 python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
 ```
 ---
