@@ -212,7 +212,7 @@ python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/imag
 Edge Deployment <a id="edge-deployment"></a>
 
 ```Bash 
-python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
+python export.py --weights runs/train/exp/weights/best.pt --include tflite --dynamic --quantize int8
 ```
 
 ---
