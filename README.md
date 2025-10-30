@@ -105,8 +105,101 @@ Expected output:
 ```nginx
 Python 3.10.x
 ```
+### 2️⃣ Install CUDA (for NVIDIA GPU users)
+If you are using an NVIDIA GPU, installing CUDA allows PyTorch to utilize GPU acceleration.
+### 🔹 Step 1: Check your GPU model
+```Bash
+nvidia-smi
+```
+This displays your NVIDIA driver version and supported CUDA version.
+### 🔹 Step 2: Download CUDA Toolkit
+Go to the official NVIDIA site:
+👉 [here](https://developer.nvidia.com/cuda-toolkit-archive)
+Choose a version compatible with your driver (e.g., CUDA 12.1 or 12.4).
+### 🔹 Step 3: Install CUDA (for NVIDIA GPUs, Windows)
+If your system uses an NVIDIA GPU, you need to install CUDA and cuDNN to enable GPU acceleration.
+### ✅ Recommended Installation Steps:
+Go to the [NVIDIA CUDA Toolkit Download](https://developer.nvidia.com/cuda-downloads) Page.
+Select:
+Operating System: Windows
+Architecture: x86_64
+Version: Your Windows version (e.g., 11 or 10)
+Installer Type: exe (local) (recommended)
+After installation, verify CUDA is available:
+```Bash
+nvcc --version
+```
+### Install cuDNN (optional but recommended):
+Visit [NVIDIA cuDNN](https://developer.nvidia.com/cudnn) (requires login)
+Download the version matching your CUDA version (e.g., CUDA 12.1)
+Extract and copy the `bin`, `include`, and `lib` folders into your CUDA installation directory (usually `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.x\`).
+To confirm PyTorch detects your GPU:
+```python
+import torch
+print(torch.cuda.is_available())  # Should return True
+```
+### 🔹 Step 4: Configure Dataset
+Update your `datasets` file with paths to training images and class names.
+### 🔹 Step 5: Train the YOLOv11-nano Model [`train2.py`](https://github.com/jaison5/Jaison-AIot-max/blob/main/code/train2.py)
+Create a Python file (e.g., `train_yolo.py`) and paste the following script:
+```python
+import os
+import torch
+import multiprocessing
+from ultralytics import YOLO
 
+# Set CUDA device
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+assert torch.cuda.is_available(), "❌ Can't find the GPU. Please confirm that CUDA and PyTorch are installed correctly."
+torch.cuda.empty_cache()
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+torch.backends.cudnn.benchmark = True  
 
+if __name__ == '__main__':
+    multiprocessing.freeze_support()
+
+    model = YOLO('models/11n-3.pt')   # Load model
+
+    results = model.train(
+        data="yaml/20250105.yaml",  
+        imgsz=1024,                 
+        epochs=300,                 
+        batch=12,                    
+        workers=8,                  
+        device=0,
+        amp=True,                   
+        val=True,
+        pretrained=True,           
+        save_period=10,
+        project='gamechess',
+        name='exp',
+        lr0=0.005,
+        lrf=0.1,
+        patience=50,                
+        warmup_epochs=5,           
+        cos_lr=True,
+        augment=True,
+        mosaic=0.8,
+        mixup=0.15,
+        copy_paste=0.15,
+        hsv_h=0.015,
+        hsv_s=0.7,
+        hsv_v=0.4,
+        degrees=10,
+        translate=0.1,
+        scale=0.6,
+        shear=2.0,
+        perspective=0.0005
+    )
+
+    print("✅ The training is completed, and the results are stored in:", results.save_dir)
+```
+Run the script:
+```bash
+python train_yolo.py
+```
+### ✅ After completion:
+Training results, weights, and logs will be stored in the `runs/train/exp` directory.
 
 ---
 
@@ -118,9 +211,10 @@ python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/imag
 ```
 Edge Deployment <a id="edge-deployment"></a>
 
-```Bash python
+```Bash 
 python export.py --weights runs/train/exp/weights/best.pt --include torchscript onnx
 ```
+
 ---
 
 ## 📊 Performance Metrics <a id="performance-metrics"></a>
