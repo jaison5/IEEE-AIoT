@@ -20,7 +20,7 @@ A lightweight, high-performance YOLOv11-nano model for detecting GameChess piece
 - [📊 Performance Metrics](#performance-metrics)
 - [🖼️ Detection Examples](#detection-examples)
 - [🚀 Future Enhancements](#future-enhancements)
-- [🤝 Collaboration](#collaboration)
+- [🤝 Contributing](#contributing)
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 ## 🤖 Overview <a id="overview"></a>
@@ -288,7 +288,7 @@ ROS and mobile app integration
 
 ---
 
-## 🤝 Collaboration <a id="collaboration"></a>
+## 🤝 Contributing <a id="contributing"></a>
 Collaboration is welcome! You can:
 
 - Submit pull requests
