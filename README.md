@@ -205,16 +205,34 @@ Training results, weights, and logs will be stored in the `runs/train/exp` direc
 
 ## 💻 Usage <a id="usage"></a>
 Inference on New Images <a id="inference-on-new-images"></a>
+create [webcamera.py]
+```python
+import cv2
+from ultralytics import YOLO
 
-```Bash
-python detect.py --weights runs/train/exp/weights/best.pt --source /path/to/images --img 1024
+model = YOLO('models/yolo11n.pt')
+cap = cv2.VideoCpature(0)
+
+while cap.isOpened():
+    success, frame = cap.read()
+
+    if success:
+        result = model(frame)
+
+        annotated_frame = result[0].plot()
+
+        cv2.imshow("YOLOv8 Inference", annotated_frame)
+
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+
+cap.release()
+cv2.destroyAllWindows()
 ```
-Edge Deployment <a id="edge-deployment"></a>
-
-```Bash 
-python export.py --weights runs/train/exp/weights/best.pt --include tflite --dynamic --quantize int8
+Run the script:
+```bash
+python webcamera.py
 ```
-
 ---
 
 ## 📊 Performance Metrics <a id="performance-metrics"></a>
