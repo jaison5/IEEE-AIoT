@@ -85,25 +85,29 @@ This modular structure ensures smooth integration between vision, control, and c
 
 ---
 
-## 🔧 Training Instructions <a id="training-instructions"></a>
+## 🔧 Training Instructions
 
-### 1. Configure Dataset
+Before starting the training process, please ensure that your environment is properly configured for **Python**, **PyTorch**, and (optionally) **CUDA** acceleration.
 
-Update `dataset.yaml` with paths to images and class names.
+---
 
-### 2. Train YOLOv11-nano
+### 1️⃣ Install Python
+
+Download and install **Python 3.10+** from the official website:  
+👉 [https://www.python.org/downloads/](https://www.python.org/downloads/)
+
+After installation, check your version:
 
 ```bash
-python train.py --model yolov11-nano.pt --data dataset.yaml --epochs 100 --batch-size 16 --img 1024
+python --version
+```
+Expected output:
+```nginx
+Python 3.10.x
 ```
 
-### 3. Evaluation
 
-Evaluate the model performance after training:
 
-```Bash
-python val.py --weights runs/train/exp/weights/best.pt --data dataset.yaml --img 1024
-```
 ---
 
 ## 💻 Usage <a id="usage"></a>
