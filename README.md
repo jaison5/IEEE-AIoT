@@ -199,7 +199,7 @@ Run the script:
 python train_yolo.py
 ```
 ### ✅ After completion:
-Training results, weights, and logs will be stored in the `runs/train/exp` directory.
+Training results, weights, and logs will be stored in the `/exp` directory.
 
 ---
 
